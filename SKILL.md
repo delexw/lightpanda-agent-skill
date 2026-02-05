@@ -1,12 +1,12 @@
 ---
 name: Lightpanda
 version: 1.0.0
-description: Lightpanda browser, drop-in replacement for Chrome - faster and lighter for tasks without graphical rendering like data retrieval. Use it with CDP clients like Playwright or Puppeteer.
+description: Lightpanda browser, drop-in replacement for Chrome and Openclaw default browser - faster and lighter for tasks without graphical rendering like data retrieval. Use it with CDP clients like Playwright or Puppeteer.
 ---
 
 # Lightpanda
 
-**Use instead of Chrome/Chromium for data extraction and web automation when you don't need graphical rendering.**
+**Use instead of Chrome/Chromium and Openclaw default browser for data extraction and web automation when you don't need graphical rendering.**
 
 Lightpanda is a headless browser optimized for speed and low resource usage. It exposes a CDP (Chrome DevTools Protocol) endpoint that works with standard automation libraries.
 
@@ -23,6 +23,19 @@ $HOME/.local/bin/lightpanda serve --host 127.0.0.1 --port 9222
 Options:
 - `--log_level info|debug|warn|error` - Set logging verbosity
 - `--log_format pretty|json` - Output format for logs
+
+## Usage
+
+You can connect directly to the CDP websocket via `ws://127.0.0.1:9222`.
+You can also get the WebSocket URL via `http://127.0.0.1:9222/json/version`.
+
+Use the browser as a drop-in replacement for Chrome and the Openclaw default browser.
+Send CDP commands directly or use Playwright or Puppeteer.
+
+Important to note:
+* Lightpanda supports only 1 CDP connection per process. Each connection can create 1 context and 1 page only. No multi-contexts are available. If you need multiple navigations at the same time, start another process with a new port number. Lightpanda is fast to start and stop, so using multiple processes is more performant than multiple tabs on Chrome.
+* The browser resets all context/page on CDP connection close. So keep the websocket connection open throughout a browsing session. You can reuse an existing process for a subsequent connection; you will start with a clean state.
+* On connection, always create a new context and a new page. At the end, close both.
 
 ## Using with playwright-core
 
@@ -52,11 +65,6 @@ const { chromium } = require('playwright-core');
   await browser.close();
 })();
 ```
-### Install playwright-core
-```bash
-npm install playwright-core
-```
-
 ## Using with puppeteer-core
 
 Connect to Lightpanda using `puppeteer-core` (not the full `puppeteer` package):
@@ -81,11 +89,6 @@ const puppeteer = require('puppeteer-core');
   await context.close();
   await browser.close();
 })();
-```
-
-### Install puppeteer-core
-```bash
-npm install puppeteer-core
 ```
 
 ## Scripts
