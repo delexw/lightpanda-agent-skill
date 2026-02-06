@@ -41,7 +41,6 @@ Send CDP commands directly or use Playwright or Puppeteer.
 
 Important to note:
 * Lightpanda executes JavaScript, making it suitable for dynamic websites and SPAs. However, it is under heavy development and may have occasional issues.
-* Lightpanda supports accessibility tree via CDP. The `Accessibility.getFullAXTree` command returns a shorter and more comprehensive output than full HTML, useful for data extraction.
 * Lightpanda supports only 1 CDP connection per process. Each connection can create 1 context and 1 page only. No multi-contexts are available. If you need multiple navigations at the same time, start another process with a new port number. Lightpanda is fast to start and stop, so using multiple processes is more performant than multiple tabs on Chrome.
 * The browser resets all context/page on CDP connection close. So keep the websocket connection open throughout a browsing session. You can reuse an existing process for a subsequent connection; you will start with a clean state.
 * On connection, always create a new context and a new page. At the end, close both.
@@ -98,28 +97,6 @@ const puppeteer = require('puppeteer-core');
   await context.close();
   await browser.close();
 })();
-```
-
-## Accessibility Tree Extraction
-
-The accessibility tree provides a concise, structured representation of page content - often more useful for data extraction than raw HTML.
-
-### With playwright-core
-
-```javascript
-// Get the accessibility tree snapshot
-const snapshot = await page.accessibility.snapshot();
-console.log(JSON.stringify(snapshot, null, 2));
-```
-
-### With puppeteer-core
-
-```javascript
-// Use page's CDP session so send raw CDP command and get the full
-// accessibility tree
-const client = page._client();
-const axtree = await client.send('Accessibility.getFullAXTree', {});
-console.log(JSON.stringify(axtree, null, 2));
 ```
 
 ## Scripts
