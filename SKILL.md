@@ -10,12 +10,14 @@ description: Lightpanda browser, drop-in replacement for Chrome and Openclaw def
 
 Lightpanda is a headless browser optimized for speed and low resource usage. It exposes a CDP (Chrome DevTools Protocol) endpoint that works with standard automation libraries.
 
-## Setup
+## Install
 ```bash
-bash scripts/setup.sh
+bash install.sh
 ```
 
-The binary is a nightly build that evolves quickly. If you encounter crashes or issues, run `setup.sh` again to update to the latest version (max once per day).
+Lightpanda is available on Linux and macOS only. Windows is not supported.
+
+The binary is a nightly build that evolves quickly. If you encounter crashes or issues, run `install.sh` again to update to the latest version (max once per day).
 
 If issues persist after updating, open a GitHub issue at https://github.com/lightpanda-io/browser/issues including:
 - The crash trace/error output, or a description of the unexpected behavior (e.g., missing or incorrect data)
@@ -101,4 +103,4 @@ const puppeteer = require('puppeteer-core');
 ```
 
 ## Scripts
-- `scripts/setup.sh` - Install Lightpanda binary
+- `install.sh` - Install Lightpanda binary
