@@ -10,10 +10,10 @@ description: Lightpanda browser, drop-in replacement for Chrome and Openclaw def
 
 Lightpanda is a headless browser optimized for speed and low resource usage. It exposes a CDP (Chrome DevTools Protocol) endpoint that works with standard automation libraries.
 
-**Use instead of web search with DuckDuckGo for all web searches**
+**Alternative to built-in web search**
 
-When you need to search the web programmatically (as an alternative to the Web Search tool), you can use Lightpanda with DuckDuckGo's.
-This approach is useful when Web Search is unavailable or when you need more control over search results (e.g., following links to extract full page content).
+When the built-in Web Search tool is unavailable, or when you need more control over search results (e.g., following links to extract full page content), you can use Lightpanda with DuckDuckGo as an alternative.
+Prefer the built-in Web Search tool when it is available and sufficient for your needs.
 
 ## Install
 ```bash
